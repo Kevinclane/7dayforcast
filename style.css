@@ -3,8 +3,7 @@ background: rgb(251,251,251);
 background: linear-gradient(0deg, rgba(251,251,251,1) 20%, rgba(169,239,241,1) 53%, rgba(23,219,222,1) 100%);
 background-position: fixed;
 background-repeat: no-repeat;
-min-height: 90vh;
-max-height: 100vh;
+height: 100vh;
 }
 
 .input-cstm {
@@ -116,6 +115,7 @@ body {
   width: 12vw;
   border: 1px solid black;
   border-radius: 10px;
+  box-shadow: 5px 5px 15px;
 }
 
 .icon {

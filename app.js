@@ -6,10 +6,11 @@ function toMPH(speed) {
 }
 
 function toFahrenheit(temp) {
-  temp = (temp * 9 / 5) + 32
+  temp = Math.round((temp * 9 / 5) + 32)
   return temp
 }
 
+//load inital page view
 function init() {
   document.getElementById("app").innerHTML =
     `
@@ -36,8 +37,8 @@ function generateDayWeather(data, day, date) {
     <img class="icon" src="https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png" alt="weather icon"/>
     <div>${day}</div>
     <div>${date}</div>
-    <div>High ${data.high_temp}&deg;F</div>
-    <div>Low ${data.low_temp}&deg;F</div>
+    <div>High ${high}&deg;F</div>
+    <div>Low ${low}&deg;F</div>
     <div>${data.weather.description}</div>
     <div>
     <span>
@@ -55,7 +56,7 @@ function generateDayWeather(data, day, date) {
   return template
 }
 
-function setupWeatherTemplate() {
+function setupWeatherTemplate(location) {
   document.getElementById("app").innerHTML =
     `
     <div class="row">
@@ -71,6 +72,9 @@ function setupWeatherTemplate() {
         </form>
       </div>
       <div id="weather" class="col-12">
+      <h3>
+          Could not find data for ${location}. Check spelling or select a different city
+        </h3>
       </div>
     </div>
   `
@@ -93,19 +97,27 @@ function loadWeather(event) {
       // "X-Auth-Token": weatherToken
     },
   }).then(response => response.json())
-    .then(setupWeatherTemplate())
+    .then(setupWeatherTemplate(location))
     .then(res => {
-      console.log(res)
-      let template = `<div class="row d-flex justify-content-around mt-5">`
-      let i = 0
-      while (i < res.data.length) {
-        let readableDate = dayjs(res.data[i].datetime).format("M/D/YY")
-        let day = dayjs(res.data[i].datetime).format("ddd")
-        template += generateDayWeather(res.data[i], day, readableDate)
-        i++
+      debugger
+      if (!res.data) {
+        document.getElementById("weather").innerHTML =
+          `
+        
+        `
+      } else {
+        console.log(res)
+        let template = `<div class="row d-flex justify-content-around mt-5">`
+        let i = 0
+        while (i < res.data.length) {
+          let readableDate = dayjs(res.data[i].datetime).format("M/D/YY")
+          let day = dayjs(res.data[i].datetime).format("ddd")
+          template += generateDayWeather(res.data[i], day, readableDate)
+          i++
+        }
+        template += `</div>`
+        document.getElementById("weather").innerHTML = template
       }
-      template += `</div>`
-      document.getElementById("weather").innerHTML = template
     })
 }
 
