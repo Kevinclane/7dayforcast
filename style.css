@@ -122,6 +122,10 @@ body {
   max-width: 70%;
 }
 
+.wind {
+  width: 1rem;
+}
+
 .container {
   width: 100%;
   padding-right: 15px;

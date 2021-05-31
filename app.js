@@ -1,11 +1,21 @@
 let weatherToken = "ba0369277f524ef783ebf22843d8f58e"
 
+function toMPH(speed) {
+  speed = (speed * 2.237).toFixed(2)
+  return speed
+}
+
+function toFahrenheit(temp) {
+  temp = (temp * 9 / 5) + 32
+  return temp
+}
+
 function init() {
   document.getElementById("app").innerHTML =
     `
     <div class="row">
       <h1 class="col-12 mt-4">7 Day Forecast</h1>
-      <h4 class="col-12 my-4">Please enter your location</h4>
+      <h4 class="col-12 my-4">Please enter a city</h4>
     </div>
     <form class="row" id="location-form" onsubmit="loadWeather(event)">
       <input class="col-6 offset-3 input-cstm" type="text" placeholder="city..." id="location">
@@ -17,15 +27,29 @@ function init() {
 }
 
 function generateDayWeather(data, day, date) {
+  let windSpeed = toMPH(data.wind_spd)
+  let high = toFahrenheit(data.high_temp)
+  let low = toFahrenheit(data.low_temp)
   let template =
     `
   <span class="weather-card">
-    <img class="icon" src="https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png" />
+    <img class="icon" src="https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png" alt="weather icon"/>
     <div>${day}</div>
     <div>${date}</div>
-    <div>High ${data.high_temp}</div>
-    <div>Low ${data.low_temp}</div>
+    <div>High ${data.high_temp}&deg;F</div>
+    <div>Low ${data.low_temp}&deg;F</div>
     <div>${data.weather.description}</div>
+    <div>
+    <span>
+    <img class="wind" src="./assets/wind.png" alt="wind:" />
+    </span>
+    <span>
+    ${windSpeed}mph
+    </span>
+    <span>
+    ${data.wind_cdir}
+    </span>
+    </div>
   </span>
   `
   return template
