@@ -15,4 +15,4 @@ open index.html
 That's it!
 
 
-Live version available: https://kevinclane.github.io/7dayforcast/
+Live version available: https://kevinclane.github.io/7dayforecast/
