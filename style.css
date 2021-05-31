@@ -1,5 +1,5 @@
 .bg-grad {
-  background: rgb(251,251,251);
+background: rgb(251,251,251);
 background: linear-gradient(0deg, rgba(251,251,251,1) 20%, rgba(169,239,241,1) 53%, rgba(23,219,222,1) 100%);
 background-position: fixed;
 background-repeat: no-repeat;
@@ -89,15 +89,38 @@ body {
   background-color: #fff;
 }
 
-/* REGION FORMATTING */
+@media screen and (max-width: 992px) {
+  body {
+    font-size: .5rem;
+  }
+}
 
 .text-center{
   text-align: center;
 }
 
-/* END REGION FORMATTIN */
-
 /* REGION LAYOUT */
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.weather-card {
+  width: 12vw;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.icon {
+  max-width: 70%;
+}
 
 .container {
   width: 100%;
