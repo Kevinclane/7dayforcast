@@ -1,7 +1,7 @@
 let weatherToken = "ba0369277f524ef783ebf22843d8f58e"
 
 function toMPH(speed) {
-  speed = (speed * 2.237).toFixed(2)
+  speed = Math.round(speed * 2.237)
   return speed
 }
 
@@ -99,7 +99,6 @@ function loadWeather(event) {
   }).then(response => response.json())
     .then(setupWeatherTemplate(location))
     .then(res => {
-      debugger
       if (!res.data) {
         document.getElementById("weather").innerHTML =
           `
